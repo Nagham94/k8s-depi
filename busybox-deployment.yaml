@@ -1,20 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  creationTimestamp: null
+  labels:
+    app: busybox-deployment
   name: busybox-deployment
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: busybox-deployment
+  strategy: {}
   template:
     metadata:
+      creationTimestamp: null
       labels:
         app: busybox-deployment
     spec:
       containers:
-      - name: busybox
-        image: busybox
+      - image: busybox
+        name: busybox
         command: ["sh", "-c", "sleep 3600"]
         env:
         - name: name
@@ -24,5 +29,5 @@ spec:
             configMapKeyRef:
               name: k8s-configmap
               key: my-nice-age
-        resources: {}   
-
+        resources: {}
+status: {}
